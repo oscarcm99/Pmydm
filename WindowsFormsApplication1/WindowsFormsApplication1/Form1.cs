@@ -30,7 +30,7 @@ namespace WindowsFormsApplication1
             //    resultado.Text += " " + mitabla[i];
             //}
             foreach (int numero in mitabla ){
-                resultado.Text += " "+numero;
+                resultado.Text += " "+numero; 
             }
         }
 
