@@ -8,91 +8,100 @@ namespace ConsoleApplication2
 {
     class Program
     {
-        static void escribirMenu() {
-            Console.WriteLine("1. Inicializar la variable.",
-                "2. Rellenar la cadena.",
-                "3. Escribir la cadena por pantalla",
-                "4. Invertir la cadena.",
-                "5. Convertir la cadena a mayusculas.",
-                "6. Convertir la cadena a minusculas. ",
-                "7. Rotar caracter a la derecha.",
-                "8. Rotar caracter a la izquierda",
-                "9. Salir del programa.",
-                "Introduce una opcion: ");
-        }
-        static void iniciarCadena(String cadena) {
-            cadena = "\0";
-        }
-        static void introducirCadena(ref String cadena){
-            Console.WriteLine("Introduce la palabra: ");
-            cadena = Convert.ToString(Console.ReadLine());
-        }
-        static void escribirCadena(String cadena) {
-            Console.WriteLine("La palabra es: " + cadena);
-        }
-        static void invertirCadena(String cadena) {
-            for (int i = cadena.Length; i >= 0; i++)
-                cadena += cadena[i];
-        }
-        static void convertirMayusculas(String cadena){
-            cadena = cadena.ToUpperInvariant();
-        }
-        static void convertirMinusculas(String cadena)
-        {
-            cadena = cadena.ToLowerInvariant();
-        }
-        static void rotarDerecha(String cadena) {
-            int contador = 0;
-            while (contador < cadena.Length)
-            {
-                cadena += cadena[contador % cadena.Length+1];
-                contador++;
-            }
-
-               
-        }
-        static void rotarIzquierda(String cadena) {
-        }
         static void Main(string[] args)
         {
             String cadena =  null;
             int opcion = 0;
-            
-            while (opcion != 9)
-            {
-                escribirMenu();
-                opcion = Convert.ToInt32(Console.ReadKey());
-                switch (opcion)
-                {
+
+            do {
+                Console.WriteLine("1. Inicializar variable.");
+                Console.WriteLine("2. Rellenar cadena.");
+                Console.WriteLine("3. Escribir la cadena por pantalla.");
+                Console.WriteLine("4. Invertir cadena.");
+                Console.WriteLine("5. Convertir mayusculas.");
+                Console.WriteLine("6. Convertir minúsculas.");
+                Console.WriteLine("7. Rotar derecha.");
+                Console.WriteLine("8. Rotar izquierda.");
+                Console.WriteLine("9. Salir");
+                Console.WriteLine("Introduce opcion: ");
+                opcion = Int32.Parse(Console.ReadLine());
+                switch (opcion) {
                     case 1:
-                        iniciarCadena( cadena);
+                        iniciarCadena(cadena);
                         break;
                     case 2:
-                        introducirCadena(ref cadena);
+                        rellenarCadena(ref cadena); 
                         break;
                     case 3:
                         escribirCadena(cadena);
                         break;
                     case 4:
-                        invertirCadena(cadena);
+                        cadena = invertirCadena(cadena);
                         break;
                     case 5:
-                        convertirMayusculas(cadena);
+                        cadena =convertirMayusculas(cadena);
                         break;
                     case 6:
-                        convertirMinusculas(cadena);
+                        cadena = convertirMinusculas(cadena);
                         break;
                     case 7:
-                        rotarDerecha(cadena);
+                        cadena = rotarDerecha(cadena);
                         break;
                     case 8:
+                        cadena = rotarIzquierda(cadena);
                         break;
                     case 9:
-                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Error");
                         break;
                 }
-            }
+            } while (opcion!=9);
         }
-        
+        public static void iniciarCadena(string cadena) {
+            cadena = "";
+        }
+        public static void rellenarCadena(ref string cadena) {
+            cadena = Console.ReadLine();
+        }
+        public static void escribirCadena(string cadena) {
+            Console.WriteLine(cadena);
+        }
+        public static string invertirCadena(string cadena) {
+            char[] charArray = cadena.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+        public static string convertirMayusculas(string cadena) {
+            cadena = cadena.ToUpper();
+            return cadena;
+        }
+        public static string convertirMinusculas(string cadena) {
+            cadena = cadena.ToLower();
+            return cadena;
+        }
+        public static string rotarDerecha(string cadena){
+            var arr = cadena.ToCharArray();
+            char[] cad = new char[0x100];
+            for (int i=0; i<arr.Length; i++) {
+                if (i != 0)
+                    cad[i] = arr[i - 1];
+                else
+                    cad[i] = arr[arr.Length - 1]; 
+            }
+            return new string(cad);
+        }
+        public static string rotarIzquierda(string cadena)
+        {
+            var arr = cadena.ToCharArray();
+            char[] cad = new char[0x100];
+            for ( int i = 0; i<arr.Length; i++){
+                if (i != 0)
+                    cad[i - 1] = arr[i];
+                else
+                    cad[arr.Length - 1] = arr[i];
+            }
+            return new string(cad);
+        }
     }
 }
